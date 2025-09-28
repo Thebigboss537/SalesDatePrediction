@@ -14,9 +14,9 @@ namespace SalesDatePrediction.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<GetProduct>> GetAllProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.GetProducts.ToListAsync();
         }
     }
 }

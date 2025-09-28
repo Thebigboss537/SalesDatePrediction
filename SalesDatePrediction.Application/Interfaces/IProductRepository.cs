@@ -9,6 +9,6 @@ namespace SalesDatePrediction.Application.Interfaces
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetAllProductsAsync();
+        Task<IEnumerable<GetProduct>> GetAllProductsAsync();
     }
 }
