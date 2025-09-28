@@ -420,16 +420,10 @@ var customerDtos = customers.Select(c => new CustomerPredictionDto
 
 ### CustomerService - Órdenes:
 ```csharp
-// Mapeo en CustomerService.GetCustomerOrdersAsync()
-var orderDtos = orders.Select(o => new OrderDto
-{
-    OrderId = o.Orderid,
-    RequiredDate = o.Requireddate,
-    ShippedDate = o.Shippeddate,
-    ShipName = o.Shipname,
-    ShipAddress = o.Shipaddress,
-    ShipCity = o.Shipcity
-});
+// Uso directo de DTOs desde stored procedure (sin mapeo adicional)
+// El repository ya retorna CustomerOrderDto desde sp_GetClientOrders
+var orders = await _customerRepository.GetCustomerOrdersAsync(customerId);
+return orders; // Ya son DTOs, no necesitan mapeo
 ```
 
 ### OrderService - Crear orden:
