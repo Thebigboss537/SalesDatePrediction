@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="8.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.20" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SalesDatePrediction.API\SalesDatePrediction.API.csproj">
+      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </ProjectReference>
+    <ProjectReference Include="..\SalesDatePrediction.Application\SalesDatePrediction.Application.csproj" />
+    <ProjectReference Include="..\SalesDatePrediction.Domain\SalesDatePrediction.Domain.csproj" />
+    <ProjectReference Include="..\SalesDatePrediction.Infrastructure\SalesDatePrediction.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <Target Name="CopyTestHostFiles" AfterTargets="Build">
+    <ItemGroup>
+      <ApiDepsFile Include="..\SalesDatePrediction.API\bin\Debug\net8.0\SalesDatePrediction.API.deps.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ApiDepsFile)" DestinationFiles="$(OutputPath)testhost.deps.json" />
+  </Target>
+
+</Project>
