@@ -60,7 +60,7 @@ namespace SalesDatePrediction.Tests
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var orders = await response.Content.ReadFromJsonAsync<List<OrderDto>>();
+            var orders = await response.Content.ReadFromJsonAsync<List<CustomerOrderDto>>();
 
             orders.Should().NotBeNull();
             orders.Should().NotBeEmpty();
@@ -85,7 +85,7 @@ namespace SalesDatePrediction.Tests
             // Assert - Should return OK with empty list, not NotFound based on current implementation
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var orders = await response.Content.ReadFromJsonAsync<List<OrderDto>>();
+            var orders = await response.Content.ReadFromJsonAsync<List<CustomerOrderDto>>();
             orders.Should().NotBeNull();
             orders.Should().BeEmpty(); // No orders for non-existent customer
         }

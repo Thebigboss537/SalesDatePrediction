@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using SalesDatePrediction.Application.Interfaces;
+using SalesDatePrediction.Application.DTOs;
 using SalesDatePrediction.Domain.Entities;
 using SalesDatePrediction.Infrastructure.Data;
 
@@ -19,11 +21,12 @@ namespace SalesDatePrediction.Infrastructure.Repositories
             return await _context.CustomerPredictions.ToListAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetCustomerOrdersAsync(int customerId)
+        public async Task<IEnumerable<CustomerOrderDto>> GetCustomerOrdersAsync(int customerId)
         {
-            return await _context.Orders
-                .Where(o => o.Custid == customerId)
-                .OrderByDescending(o => o.Orderdate)
+            var customerIdParam = new SqlParameter("@CustomerId", customerId);
+
+            return await _context.Database
+                .SqlQueryRaw<CustomerOrderDto>("EXEC [dbo].[sp_GetClientOrders] @CustomerId", customerIdParam)
                 .ToListAsync();
         }
     }

@@ -42,7 +42,7 @@ namespace SalesDatePrediction.Application.Services
             }
         }
 
-        public async Task<IEnumerable<OrderDto>> GetCustomerOrdersAsync(int customerId)
+        public async Task<IEnumerable<CustomerOrderDto>> GetCustomerOrdersAsync(int customerId)
         {
             if (customerId <= 0)
             {
@@ -56,19 +56,9 @@ namespace SalesDatePrediction.Application.Services
 
                 var orders = await _customerRepository.GetCustomerOrdersAsync(customerId);
 
-                var orderDtos = orders.Select(o => new OrderDto
-                {
-                    OrderId = o.Orderid,
-                    RequiredDate = o.Requireddate,
-                    ShippedDate = o.Shippeddate,
-                    ShipName = o.Shipname,
-                    ShipAddress = o.Shipaddress,
-                    ShipCity = o.Shipcity
-                });
+                _logger.LogInformation("Retrieved {Count} orders for customer {CustomerId}", orders.Count(), customerId);
 
-                _logger.LogInformation("Retrieved {Count} orders for customer {CustomerId}", orderDtos.Count(), customerId);
-
-                return orderDtos;
+                return orders;
             }
             catch (Exception ex)
             {

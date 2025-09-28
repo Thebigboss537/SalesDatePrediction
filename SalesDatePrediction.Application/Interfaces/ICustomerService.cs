@@ -5,6 +5,6 @@ namespace SalesDatePrediction.Application.Interfaces
     public interface ICustomerService
     {
         Task<IEnumerable<CustomerPredictionDto>> GetCustomersWithPredictionAsync();
-        Task<IEnumerable<OrderDto>> GetCustomerOrdersAsync(int customerId);
+        Task<IEnumerable<CustomerOrderDto>> GetCustomerOrdersAsync(int customerId);
     }
 }
